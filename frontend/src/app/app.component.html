@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Management System</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1>Hotel Management System</h1>
+    </div>
+    <div class="contenaire">
+      <div class="sidebar" *ngIf="!isCustomerLoggedIn && !isAdminLoggedIn">
+        <ul>
+          <li><a routerLink="/register">Register</a></li>
+          <li><a routerLink="/login">Login</a></li>
+        </ul>
+      </div>
+      <div class="sidebar" *ngIf="isAdminLoggedIn">
+        <ul>
+          <li><a routerLink="/admin/room">Post Room</a></li>
+          <li><a routerLink="/admin/rooms">Rooms</a></li>
+          <li><a routerLink="/admin/reservations">Reservations</a></li>
+          <li><a class="logout" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+      <div class="sidebar" *ngIf="isCustomerLoggedIn">
+        <ul>
+          <li><a routerLink="/customer/rooms">Rooms</a></li>
+          <li><a routerLink="/customer/bookings">Bookings</a></li>
+          <li><a class="logout" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </body>
+</html>

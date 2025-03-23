@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <!-- Styled Reservations Title -->
+  <h2 class="reservations-title">Reservations</h2>
+
+  <!-- Reservations Table -->
+  <table class="reservations-table">
+    <thead>
+      <tr>
+        <th>Room Name</th>
+        <th>Room Type</th>
+        <th>Check-In Date</th>
+        <th>Check-Out Date</th>
+        <th>Price</th>
+        <th>User Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.roomName }}</td>
+        <td>{{ reservation.roomType }}</td>
+        <td>{{ reservation.checkInDate | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ reservation.checkOutDate | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ reservation.price }}</td>
+        <td>{{ reservation.userName }}</td>
+        <td>{{ reservation.reservationStatus }}</td>
+        <td *ngIf="reservation.reservationStatus == 'PENDING'">
+          <!-- Approve Button -->
+          <button class="btn-approve" (click)="changeReservationStatus(reservation.id, 'Approve')">
+            <i class="fas fa-check"></i> <!-- Font Awesome Check Icon -->
+          </button>
+          <!-- Reject Button -->
+          <button class="btn-reject" (click)="changeReservationStatus(reservation.id, 'Reject')">
+            <i class="fas fa-times"></i> <!-- Font Awesome Times Icon -->
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button
+      class="pagination-button"
+      (click)="pageIndexChange(currentPage - 1)"
+      [disabled]="currentPage === 0"
+    >
+      Previous
+    </button>
+    <button
+      class="pagination-button"
+      *ngFor="let page of getPageNumbers()"
+      (click)="pageIndexChange(page - 1)"
+      [class.active]="page === currentPage + 1"
+    >
+      {{ page }}
+    </button>
+    <button
+      class="pagination-button"
+      (click)="pageIndexChange(currentPage + 1)"
+      [disabled]="currentPage === total - 1"
+    >
+      Next
+    </button>
+  </div>
+</div>
